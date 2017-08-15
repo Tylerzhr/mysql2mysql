@@ -1,0 +1,2 @@
+# mysql2mysql
+mysql中原有数据是scrapy爬下来的，现在使用这个添加id号转存到数据库
