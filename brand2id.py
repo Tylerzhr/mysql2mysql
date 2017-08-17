@@ -7,14 +7,19 @@ db = pymysql.connect(host   = 'localhost',
                      db     = 'car')
 db.set_charset('utf8')
 cursor=db.cursor()
+brandid=0
 sql="SELECT brand from carbrand ORDER BY id ASC"
 res=cursor.execute(sql)
 res=cursor.fetchall()
-path = 'D:\scrapy_project\image\full'
+path = 'D:\scrapy_project\logo'
+#print(format(res[0]).replace("('", '').replace("',)", ''))
 for file in os.listdir(path):
-    if os.path.isfile(os.path.join(path,file))==True:
-        if file.find(res[0]):
-            print(res[0])
+    if file.find(format(res[brandid]).replace("('", '').replace("',)", '')):
+        oldname=format(res[brandid]).replace("('", '').replace("',)", '')+".jpg"
+        brandid = brandid + 1
+        newname=format(brandid)+".jpg"
+        print(oldname+"      "+newname)
+        os.rename(os.path.join(path,oldname),os.path.join(path,newname))
         #     newname=file+'rsfdjndk.jpg'
         #     os.rename(os.path.join(path,file),os.path.join(path,newname))
         #     print (file,'ok')
